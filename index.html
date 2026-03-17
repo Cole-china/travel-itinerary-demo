@@ -117,31 +117,92 @@
   <script>
     const schedule = [
       {
-        date: "2026-04-01",
-        label: "Day 1 · 抵达",
+        date: "2026-03-20",
+        label: "Day 1 · 抵达广州→深圳｜珠江挥杆组",
         items: [
-          { time: "09:30", title: "抵达机场 · 办理入住", location: "虹桥T2 → 市中心酒店", transport: "地铁2号线 45 分钟", note: "酒店可提前寄存行李" },
-          { time: "12:30", title: "午餐", location: "静安寺附近 · 本帮菜", note: "人均 ¥80" },
-          { time: "14:00", title: "城隍庙 · 豫园", location: "城隍庙景区", transport: "地铁10号线 20 分钟", note: "推荐老城隍庙小吃" },
-          { time: "18:30", title: "外滩夜景", location: "外滩黄浦江步道", transport: "步行/地铁", note: "拍照点：外白渡桥" }
+          { time: "09:25-13:35", title: "航班 MH376 抵达广州白云", location: "CAN", note: "接机：两辆商务车；随行：Hao Ge、Moli、Mrs. Li、Moga、Mark、Mini" },
+          { time: "13:35-16:25", title: "前往深圳南山香格里拉酒店", transport: "车程约1小时50分", note: "抵达酒店 16:25" },
+          { time: "18:30", title: "晚餐：云璟 Yun Jing", transport: "酒店 → 餐厅 车程约18分钟" }
         ]
       },
       {
-        date: "2026-04-02",
-        label: "Day 2 · 城市漫步",
+        date: "2026-03-21",
+        label: "Day 2 · 深圳挥杆",
         items: [
-          { time: "09:00", title: "早餐 & 咖啡", location: "新天地 · 咖啡馆", note: "可远程办公 2h" },
-          { time: "11:30", title: "梧桐街区走读", location: "武康路-安福路一带", transport: "步行", note: "小店/买手店" },
-          { time: "15:00", title: "博物馆/美术馆", location: "龙美术馆/余德耀美术馆（二选一）", transport: "地铁+步行", note: "提前线上购票" },
-          { time: "19:00", title: "夜宵", location: "延吉路韩式/黄河路小吃", note: "人均 ¥70-120" }
+          { time: "09:00", title: "深圳 隐秀高尔夫 18洞", transport: "酒店→球场约56分钟", note: "打球：Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Moli、Moga" },
+          { time: "12:30", title: "午餐", location: "球场内用餐" },
+          { time: "15:00", title: "足浴", location: "康悦故事·足道奢华馆", transport: "球场→足浴约1小时05分" },
+          { time: "18:30", title: "晚餐：融苑·二十四节气菜（南山）", transport: "足浴→餐厅约18分钟" }
         ]
       },
       {
-        date: "2026-04-03",
-        label: "Day 3 · 返程",
+        date: "2026-03-22",
+        label: "Day 3 · 转场广州｜挥杆+花城童梦抵达",
         items: [
-          { time: "09:30", title: "早午餐", location: "酒店附近", note: "收拾行李，退房" },
-          { time: "12:00", title: "返程", location: "酒店 → 虹桥T2", transport: "地铁2号线 45 分钟", note: "预留安检时间" }
+          { time: "09:00", title: "东莞 海逸高尔夫 18洞（挥杆组）", transport: "酒店→球场约1小时11分", note: "午餐：球场内" },
+          { time: "14:30", title: "东莞→广州", transport: "车程约1小时25分" },
+          { time: "09:25-13:35", title: "花城童梦组抵达广州 MH376", note: "3辆商务车接机；接机：Moga、Mini" },
+          { time: "16:25", title: "抵达广州香格里拉酒店", transport: "车程约50分钟" },
+          { time: "18:30", title: "晚餐：樾宴餐厅（二沙岛）", transport: "酒店→餐厅约26分钟" }
+        ]
+      },
+      {
+        date: "2026-03-23",
+        label: "Day 4 · 广州｜花城童梦 长隆一日",
+        items: [
+          { time: "08:45", title: "出发长隆野生动物园（自驾）", note: "争取09:30前抵达" },
+          { time: "12:30", title: "午餐：园内动物主题餐厅" },
+          { time: "14:00-17:00", title: "步行游览园区", note: "关注集合/补给" },
+          { time: "18:00", title: "周边晚餐", note: "18:45前抵达马戏剧场" },
+          { time: "18:45-22:00", title: "长隆国际大马戏", note: "一等座；演出后返回广州香格里拉" }
+        ]
+      },
+      {
+        date: "2026-03-24",
+        label: "Day 5 · 广州｜童梦+挥杆分组",
+        items: [
+          { time: "10:00", title: "童梦：马岭观花植物园", transport: "车程约1小时05分", note: "早餐 08:00-10:00" },
+          { time: "15:00", title: "童梦：前往珠江夜游（天字码头）", transport: "约1小时05分" },
+          { time: "16:00", title: "童梦：珠江夜游", note: "天字码头" },
+          { time: "18:00", title: "童梦：晚餐 康莱德韵轩中餐厅" },
+          { time: "09:15-09:30", title: "挥杆：佛山高尔夫球会 开球", transport: "酒店→球场约58分钟", note: "午餐：球场内" },
+          { time: "15:00", title: "挥杆：足浴+永庆坊闲逛" },
+          { time: "19:00", title: "挥杆：晚餐 康莱德韵轩中餐厅" }
+        ]
+      },
+      {
+        date: "2026-03-25",
+        label: "Day 6 · 广州｜童梦+商务",
+        items: [
+          { time: "10:00", title: "童梦：广东博物馆", transport: "酒店→约21分钟", note: "早餐 08:00-10:00" },
+          { time: "13:00", title: "童梦：午餐", note: "待安排" },
+          { time: "13:30-18:00", title: "童梦：永庆坊闲逛" },
+          { time: "19:00", title: "童梦：晚餐 炳胜私厨（中达旗舰店）" },
+          { time: "09:30", title: "商务：天河区商超考察", note: "S001 天河城；S002 正佳广场；S003 天环广场；S004 太古汇" },
+          { time: "13:00", title: "商务：午餐 周边安排" },
+          { time: "19:00", title: "商务：晚餐 炳胜私厨（中达旗舰店）" }
+        ]
+      },
+      {
+        date: "2026-03-26",
+        label: "Day 7 · 广州｜童梦+商务+送机",
+        items: [
+          { time: "10:30-12:00", title: "童梦：正佳企鹅冰雪世界", transport: "酒店→约26分钟" },
+          { time: "13:00", title: "童梦：午餐 正佳内" },
+          { time: "13:30-18:00", title: "童梦：正佳极地海洋世界 + 美人鱼表演" },
+          { time: "19:00", title: "童梦：晚餐 白天鹅西关粤中餐厅" },
+          { time: "11:00", title: "商务：送机 Datuk Lim 夫妻", transport: "酒店→白云机场约50分钟" },
+          { time: "10:00-17:00", title: "商务：企业考察", note: "E001 欧定服饰；E002 汇美时尚；E003 哥弟服饰研发；E004 星际熊文创" },
+          { time: "19:00", title: "商务：晚餐 白天鹅西关粤中餐厅" }
+        ]
+      },
+      {
+        date: "2026-03-27",
+        label: "Day 8 · 广州→马来西亚 返程",
+        items: [
+          { time: "08:00-10:00", title: "早餐" },
+          { time: "11:00", title: "出发前往广州白云国际机场", transport: "车程约50分钟" },
+          { time: "送机团队", title: "Moli、Hao Ge、Mrs. Li、Moga、Mini", note: "商务+童梦 共17人返程" }
         ]
       }
     ];
