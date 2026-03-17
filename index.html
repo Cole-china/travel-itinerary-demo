@@ -3,206 +3,279 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>行程日历 Demo</title>
+  <title>行程日历 · Malaysia Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light dark;
       --bg: #f6f7fb;
-      --card: #fff;
-      --text: #1f2933;
-      --sub: #52606d;
-      --accent: #2563eb;
-      --muted: #e5e7eb;
-      --shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+      --panel: rgba(255, 255, 255, 0.8);
+      --ink: #0f172a;
+      --muted: #6b7280;
+      --line: rgba(15, 23, 42, 0.1);
+      --accent: #1b4bff;
+      --accent-2: #0ea5e9;
+      --shadow: 0 14px 45px rgba(15, 23, 42, 0.15);
+      --radius-lg: 18px;
+      --radius-sm: 12px;
+      --glass: blur(16px);
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0b1220;
-        --card: #0f172a;
-        --text: #e5e7eb;
-        --sub: #9ca3af;
-        --muted: #1f2937;
-        --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+        --panel: rgba(13, 19, 35, 0.78);
+        --ink: #e5e7eb;
+        --muted: #94a3b8;
+        --line: rgba(148, 163, 184, 0.16);
+        --accent: #4f8bff;
+        --accent-2: #22d3ee;
+        --shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
       }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "SF Pro Display", "Inter", system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Manrope', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 15% 20%, rgba(34,197,235,0.12), transparent 30%),
+                  radial-gradient(circle at 85% 10%, rgba(27,75,255,0.16), transparent 32%),
+                  radial-gradient(circle at 50% 90%, rgba(14,165,233,0.12), transparent 30%),
+                  var(--bg);
+      color: var(--ink);
       line-height: 1.6;
-      padding: 16px;
-      max-width: 960px;
+      padding: 18px;
+      max-width: 1200px;
       margin-inline: auto;
     }
     header {
       position: sticky;
       top: 0;
-      z-index: 10;
-      background: var(--bg);
-      padding-bottom: 12px;
-      margin-bottom: 8px;
-      border-bottom: 1px solid var(--muted);
+      z-index: 20;
+      backdrop-filter: var(--glass);
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0 12px;
+      margin-bottom: 10px;
     }
-    h1 { margin: 0 0 8px; font-size: 1.4rem; }
+    .hero {
+      background: linear-gradient(120deg, rgba(27,75,255,0.9), rgba(14,165,233,0.9));
+      color: #fff;
+      padding: 22px 20px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 12px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.4px;
+      font-size: 1.6rem;
+    }
+    .hero p { margin: 0; color: rgba(255,255,255,0.88); }
     .nav {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding: 6px 2px 6px 0;
+      padding: 10px 2px 6px 0;
       scrollbar-width: thin;
+      margin-top: 10px;
     }
     .chip {
-      border: 1px solid var(--muted);
-      padding: 6px 10px;
-      border-radius: 12px;
-      background: var(--card);
-      color: var(--text);
-      white-space: nowrap;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-      cursor: pointer;
-      transition: transform 0.12s ease, border-color 0.12s ease;
-    }
-    .chip:hover { transform: translateY(-2px); }
-    .chip.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
-
-    .day {
-      background: var(--card);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 14px;
-      box-shadow: var(--shadow);
-    }
-    .day h2 {
-      margin: 0 0 8px;
-      font-size: 1.1rem;
-    }
-    .day h2 small { color: var(--sub); font-weight: 500; }
-    .items { display: flex; flex-direction: column; gap: 10px; }
-    .item {
-      border: 1px solid var(--muted);
-      border-radius: 10px;
-      padding: 10px 12px;
-      background: color-mix(in srgb, var(--card) 90%, var(--accent) 10%);
-    }
-    .time { font-weight: 700; color: var(--accent); }
-    .title { font-size: 1rem; margin: 2px 0; }
-    .meta { color: var(--sub); font-size: 0.92rem; }
-    .tag {
-      display: inline-block;
-      background: color-mix(in srgb, var(--accent) 18%, var(--card) 82%);
-      color: var(--accent);
-      padding: 2px 8px;
+      border: 1px solid var(--line);
+      padding: 8px 12px;
       border-radius: 999px;
-      font-size: 0.82rem;
-      margin-right: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .chip:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .chip.active { border-color: var(--accent); color: var(--accent); font-weight: 700; }
 
-    @media (min-width: 720px) {
-      body { padding: 24px; }
-      .items { grid-template-columns: 1fr; }
+    main { margin-top: 14px; display: grid; gap: 14px; }
+    .day {
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 12px;
     }
+    .day-header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .day-title { margin: 0; font-size: 1.05rem; font-weight: 700; }
+    .day-date { color: var(--muted); font-weight: 600; }
+    .day-meta { color: var(--muted); font-size: 0.92rem; }
+
+    .grid-items { display: grid; gap: 10px; }
+    @media (min-width: 768px) {
+      .grid-items { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      background: color-mix(in srgb, var(--panel) 88%, rgba(27,75,255,0.04) 12%);
+      display: grid;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 55%, rgba(27,75,255,0.07));
+      pointer-events: none;
+    }
+    .time { font-weight: 800; color: var(--accent); font-size: 0.95rem; }
+    .title { font-size: 1rem; font-weight: 700; margin: 0; }
+    .meta { color: var(--muted); font-size: 0.94rem; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .tag { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--accent) 16%, var(--panel) 84%); color: var(--accent); padding: 4px 8px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; }
+    .desc { color: var(--ink); font-size: 0.94rem; }
+    .rating { font-weight: 700; color: var(--accent-2); }
+    .img-wrap { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); height: 150px; background: #e5e7eb; }
+    .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--accent) 12%, var(--panel) 88%);
+      color: var(--accent);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.12s ease;
+    }
+    .btn-link:hover { transform: translateY(-1px); }
+
+    .legend { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
   </style>
 </head>
 <body>
   <header>
-    <h1>旅行日程 Demo</h1>
-    <div class="nav" id="dayNav"></div>
+    <div class="hero">
+      <div>
+        <h1>Malaysia Group · 广深穗 行程</h1>
+        <p>3/20 - 3/27 · 挥杆 / 童梦 / 商务 · 轻量、纯前端、移动优先</p>
+        <p class="legend">提示：顶部日期可快捷跳转；卡片内可点击“地图”打开 Google 路线。</p>
+      </div>
+      <div class="nav" id="dayNav"></div>
+    </div>
   </header>
+
   <main id="days"></main>
 
   <script>
     const schedule = [
       {
         date: "2026-03-20",
-        label: "Day 1 · 抵达广州→深圳｜珠江挥杆组",
+        label: "Day 1 · 抵达广州→深圳｜挥杆",
+        summary: "抵达广州，转场深圳，晚餐云璟",
+        cover: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "09:25-13:35", title: "航班 MH376 抵达广州白云", location: "CAN", note: "接机：两辆商务车；随行：Hao Ge、Moli、Mrs. Li、Moga、Mark、Mini" },
-          { time: "13:35-16:25", title: "前往深圳南山香格里拉酒店", transport: "车程约1小时50分", note: "抵达酒店 16:25" },
-          { time: "18:30", title: "晚餐：云璟 Yun Jing", transport: "酒店 → 餐厅 车程约18分钟" }
+          { time: "09:25-13:35", title: "航班 MH376 抵达广州白云", location: "CAN", note: "接机：两辆商务车；随行：Hao Ge、Moli、Mrs. Li、Moga、Mark、Mini", rating: 4.7, desc: "国际抵达，商务接送" },
+          { time: "13:35-16:25", title: "前往深圳南山香格里拉", transport: "车程约1小时50分", note: "抵达酒店 16:25", rating: 4.6 },
+          { time: "18:30", title: "晚餐：云璟 Yun Jing", transport: "酒店→餐厅约18分钟", rating: 4.8, desc: "高楼景观中餐" , map: "https://www.google.com/maps/dir/?api=1&destination=云璟+深圳"}
         ]
       },
       {
         date: "2026-03-21",
         label: "Day 2 · 深圳挥杆",
+        summary: "隐秀高尔夫 + 足浴 + 融苑晚餐",
+        cover: "https://images.unsplash.com/photo-1508766206392-8bd5cf550d1b?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "09:00", title: "深圳 隐秀高尔夫 18洞", transport: "酒店→球场约56分钟", note: "打球：Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Moli、Moga" },
-          { time: "12:30", title: "午餐", location: "球场内用餐" },
-          { time: "15:00", title: "足浴", location: "康悦故事·足道奢华馆", transport: "球场→足浴约1小时05分" },
-          { time: "18:30", title: "晚餐：融苑·二十四节气菜（南山）", transport: "足浴→餐厅约18分钟" }
+          { time: "09:00", title: "隐秀高尔夫 18洞", transport: "酒店→球场约56分钟", note: "球手：Mr Yong、Mary 等", rating: 4.9, map: "https://www.google.com/maps/dir/?api=1&destination=深圳隐秀高尔夫" },
+          { time: "12:30", title: "午餐", location: "球场内用餐", rating: 4.3 },
+          { time: "15:00", title: "康悦故事·足道", transport: "球场→足浴约1小时05分", rating: 4.6, map: "https://www.google.com/maps/dir/?api=1&destination=康悦故事足道" },
+          { time: "18:30", title: "晚餐：融苑·二十四节气菜", transport: "足浴→餐厅约18分钟", rating: 4.5, map: "https://www.google.com/maps/dir/?api=1&destination=融苑二十四节气菜+南山" }
         ]
       },
       {
         date: "2026-03-22",
-        label: "Day 3 · 转场广州｜挥杆+花城童梦抵达",
+        label: "Day 3 · 转场广州｜挥杆+童梦抵达",
+        summary: "挥杆东莞海逸 → 广州；童梦组抵达 + 樾宴",
+        cover: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "09:00", title: "东莞 海逸高尔夫 18洞（挥杆组）", transport: "酒店→球场约1小时11分", note: "午餐：球场内" },
-          { time: "14:30", title: "东莞→广州", transport: "车程约1小时25分" },
-          { time: "09:25-13:35", title: "花城童梦组抵达广州 MH376", note: "3辆商务车接机；接机：Moga、Mini" },
-          { time: "16:25", title: "抵达广州香格里拉酒店", transport: "车程约50分钟" },
-          { time: "18:30", title: "晚餐：樾宴餐厅（二沙岛）", transport: "酒店→餐厅约26分钟" }
+          { time: "09:00", title: "东莞 海逸高尔夫", transport: "酒店→球场约1小时11分", note: "午餐：球场内", rating: 4.7, map: "https://www.google.com/maps/dir/?api=1&destination=东莞海逸高尔夫" },
+          { time: "14:30", title: "东莞→广州", transport: "车程约1小时25分", rating: 4.2 },
+          { time: "09:25-13:35", title: "童梦组抵达 MH376", note: "3辆商务车接机；接机：Moga、Mini", rating: 4.6 },
+          { time: "16:25", title: "入住 广州香格里拉", transport: "车程约50分钟", rating: 4.8 },
+          { time: "18:30", title: "晚餐：樾宴（二沙岛）", transport: "酒店→餐厅约26分钟", rating: 4.7, map: "https://www.google.com/maps/dir/?api=1&destination=樾宴+广州" }
         ]
       },
       {
         date: "2026-03-23",
-        label: "Day 4 · 广州｜花城童梦 长隆一日",
+        label: "Day 4 · 长隆一日｜童梦",
+        summary: "长隆野生动物园 + 大马戏",
+        cover: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "08:45", title: "出发长隆野生动物园（自驾）", note: "争取09:30前抵达" },
-          { time: "12:30", title: "午餐：园内动物主题餐厅" },
-          { time: "14:00-17:00", title: "步行游览园区", note: "关注集合/补给" },
-          { time: "18:00", title: "周边晚餐", note: "18:45前抵达马戏剧场" },
-          { time: "18:45-22:00", title: "长隆国际大马戏", note: "一等座；演出后返回广州香格里拉" }
+          { time: "08:45", title: "出发 长隆野生动物园", note: "争取09:30前抵达", rating: 4.8, map: "https://www.google.com/maps/dir/?api=1&destination=长隆野生动物园" },
+          { time: "12:30", title: "午餐：园内动物主题餐厅", rating: 4.4 },
+          { time: "14:00-17:00", title: "步行游览园区", note: "关注集合/补给", rating: 4.5 },
+          { time: "18:00", title: "周边晚餐", rating: 4.2 },
+          { time: "18:45-22:00", title: "长隆国际大马戏", note: "一等座；演出后返酒店", rating: 4.9 }
         ]
       },
       {
         date: "2026-03-24",
-        label: "Day 5 · 广州｜童梦+挥杆分组",
+        label: "Day 5 · 广州｜童梦+挥杆",
+        summary: "童梦：马岭观花+珠江夜游；挥杆：佛山球会+永庆坊",
+        cover: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "10:00", title: "童梦：马岭观花植物园", transport: "车程约1小时05分", note: "早餐 08:00-10:00" },
-          { time: "15:00", title: "童梦：前往珠江夜游（天字码头）", transport: "约1小时05分" },
-          { time: "16:00", title: "童梦：珠江夜游", note: "天字码头" },
-          { time: "18:00", title: "童梦：晚餐 康莱德韵轩中餐厅" },
-          { time: "09:15-09:30", title: "挥杆：佛山高尔夫球会 开球", transport: "酒店→球场约58分钟", note: "午餐：球场内" },
-          { time: "15:00", title: "挥杆：足浴+永庆坊闲逛" },
-          { time: "19:00", title: "挥杆：晚餐 康莱德韵轩中餐厅" }
+          { time: "10:00", title: "童梦：马岭观花植物园", transport: "车程约1小时05分", note: "早餐 08:00-10:00", rating: 4.6, map: "https://www.google.com/maps/dir/?api=1&destination=马岭观花植物园" },
+          { time: "15:00", title: "童梦：前往珠江夜游（天字码头）", transport: "约1小时05分", rating: 4.5, map: "https://www.google.com/maps/dir/?api=1&destination=天字码头" },
+          { time: "16:00", title: "童梦：珠江夜游", rating: 4.7 },
+          { time: "18:00", title: "童梦：晚餐 康莱德韵轩", rating: 4.6, map: "https://www.google.com/maps/dir/?api=1&destination=韵轩+广州康莱德" },
+          { time: "09:15-09:30", title: "挥杆：佛山高尔夫球会 开球", transport: "酒店→球场约58分钟", note: "午餐：球场内", rating: 4.7, map: "https://www.google.com/maps/dir/?api=1&destination=佛山高尔夫球会" },
+          { time: "15:00", title: "挥杆：足浴 + 永庆坊", rating: 4.4 },
+          { time: "19:00", title: "挥杆：晚餐 康莱德韵轩", rating: 4.6 }
         ]
       },
       {
         date: "2026-03-25",
         label: "Day 6 · 广州｜童梦+商务",
+        summary: "童梦：广东博物馆 + 永庆坊；商务：天河商超考察",
+        cover: "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "10:00", title: "童梦：广东博物馆", transport: "酒店→约21分钟", note: "早餐 08:00-10:00" },
-          { time: "13:00", title: "童梦：午餐", note: "待安排" },
-          { time: "13:30-18:00", title: "童梦：永庆坊闲逛" },
-          { time: "19:00", title: "童梦：晚餐 炳胜私厨（中达旗舰店）" },
-          { time: "09:30", title: "商务：天河区商超考察", note: "S001 天河城；S002 正佳广场；S003 天环广场；S004 太古汇" },
-          { time: "13:00", title: "商务：午餐 周边安排" },
-          { time: "19:00", title: "商务：晚餐 炳胜私厨（中达旗舰店）" }
+          { time: "10:00", title: "童梦：广东博物馆", transport: "酒店→约21分钟", rating: 4.7, map: "https://www.google.com/maps/dir/?api=1&destination=广东博物馆" },
+          { time: "13:30-18:00", title: "童梦：永庆坊闲逛", rating: 4.6, map: "https://www.google.com/maps/dir/?api=1&destination=永庆坊" },
+          { time: "19:00", title: "童梦：晚餐 炳胜私厨（中达旗舰店）", rating: 4.6, map: "https://www.google.com/maps/dir/?api=1&destination=炳胜私厨+中达旗舰店" },
+          { time: "09:30", title: "商务：天河商超考察", desc: "S001 天河城；S002 正佳广场；S003 天环；S004 太古汇", rating: 4.8, map: "https://www.google.com/maps/dir/?api=1&destination=天河城" },
+          { time: "19:00", title: "商务：晚餐 炳胜私厨", rating: 4.6 }
         ]
       },
       {
         date: "2026-03-26",
         label: "Day 7 · 广州｜童梦+商务+送机",
+        summary: "童梦：正佳企鹅/海洋世界；商务：送机+企业考察",
+        cover: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80",
         items: [
-          { time: "10:30-12:00", title: "童梦：正佳企鹅冰雪世界", transport: "酒店→约26分钟" },
-          { time: "13:00", title: "童梦：午餐 正佳内" },
-          { time: "13:30-18:00", title: "童梦：正佳极地海洋世界 + 美人鱼表演" },
-          { time: "19:00", title: "童梦：晚餐 白天鹅西关粤中餐厅" },
-          { time: "11:00", title: "商务：送机 Datuk Lim 夫妻", transport: "酒店→白云机场约50分钟" },
-          { time: "10:00-17:00", title: "商务：企业考察", note: "E001 欧定服饰；E002 汇美时尚；E003 哥弟服饰研发；E004 星际熊文创" },
-          { time: "19:00", title: "商务：晚餐 白天鹅西关粤中餐厅" }
+          { time: "10:30-12:00", title: "童梦：正佳企鹅冰雪世界", transport: "酒店→约26分钟", rating: 4.5, map: "https://www.google.com/maps/dir/?api=1&destination=正佳企鹅冰雪世界" },
+          { time: "13:30-18:00", title: "童梦：正佳极地海洋世界 + 美人鱼表演", rating: 4.7 },
+          { time: "19:00", title: "童梦：晚餐 白天鹅西关粤", rating: 4.6, map: "https://www.google.com/maps/dir/?api=1&destination=白天鹅酒店+西关粤" },
+          { time: "11:00", title: "商务：送机 Datuk Lim 夫妻", transport: "酒店→白云机场约50分钟", rating: 4.5 },
+          { time: "10:00-17:00", title: "商务：企业考察", desc: "E001 欧定服饰；E002 汇美时尚；E003 哥弟研发；E004 星际熊文创", rating: 4.8 },
+          { time: "19:00", title: "商务：晚餐 白天鹅西关粤", rating: 4.6 }
         ]
       },
       {
         date: "2026-03-27",
         label: "Day 8 · 广州→马来西亚 返程",
+        summary: "早餐后出发白云机场，17人返程",
+        cover: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
         items: [
           { time: "08:00-10:00", title: "早餐" },
-          { time: "11:00", title: "出发前往广州白云国际机场", transport: "车程约50分钟" },
-          { time: "送机团队", title: "Moli、Hao Ge、Mrs. Li、Moga、Mini", note: "商务+童梦 共17人返程" }
+          { time: "11:00", title: "出发前往白云机场", transport: "车程约50分钟", rating: 4.4, map: "https://www.google.com/maps/dir/?api=1&destination=广州白云国际机场" },
+          { time: "送机团队", title: "Moli、Hao Ge、Mrs. Li、Moga、Mini", note: "商务+童梦 共17人返程", rating: 4.7 }
         ]
       }
     ];
@@ -213,7 +286,6 @@
     function render() {
       schedule.forEach((day, idx) => {
         const dayId = `day-${idx}`;
-        // nav chip
         const chip = document.createElement('button');
         chip.className = 'chip' + (idx === 0 ? ' active' : '');
         chip.textContent = day.label || day.date;
@@ -224,26 +296,53 @@
         };
         navEl.appendChild(chip);
 
-        // day card
         const wrap = document.createElement('section');
         wrap.className = 'day';
         wrap.id = dayId;
-        wrap.innerHTML = `<h2>${day.label || day.date} <small>${day.date}</small></h2>`;
-        const itemsEl = document.createElement('div');
-        itemsEl.className = 'items';
+
+        const header = document.createElement('div');
+        header.className = 'day-header';
+        header.innerHTML = `<div><div class="day-title">${day.label || day.date}</div><div class="day-date">${day.date}</div></div><div class="day-meta">${day.summary || ''}</div>`;
+        wrap.appendChild(header);
+
+        if (day.cover) {
+          const imgBox = document.createElement('div');
+          imgBox.className = 'img-wrap';
+          imgBox.innerHTML = `<img src="${day.cover}" alt="${day.label}" loading="lazy" />`;
+          wrap.appendChild(imgBox);
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'grid-items';
+
         (day.items || []).forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'item';
-          div.innerHTML = `
+          const card = document.createElement('div');
+          card.className = 'item';
+          card.innerHTML = `
             <div class="time">${item.time || ''}</div>
             <div class="title">${item.title || ''}</div>
-            <div class="meta">${item.location ? '📍 ' + item.location : ''}</div>
-            <div class="meta">${item.transport ? '<span class="tag">交通</span>' + item.transport : ''}</div>
-            <div class="meta">${item.note || ''}</div>
+            <div class="meta">${item.location ? '📍 ' + item.location : ''} ${item.transport ? '<span class="tag">交通</span>' + item.transport : ''}</div>
+            ${item.desc ? `<div class="desc">${item.desc}</div>` : ''}
+            ${item.note ? `<div class="desc">${item.note}</div>` : ''}
+            ${item.rating ? `<div class="meta">评分 <span class="rating">${item.rating.toFixed ? item.rating.toFixed(1) : item.rating}/5</span></div>` : ''}
           `;
-          itemsEl.appendChild(div);
+
+          const actions = document.createElement('div');
+          actions.className = 'actions';
+          if (item.map) {
+            const btn = document.createElement('a');
+            btn.className = 'btn-link';
+            btn.href = item.map;
+            btn.target = '_blank';
+            btn.rel = 'noopener noreferrer';
+            btn.textContent = '地图';
+            actions.appendChild(btn);
+          }
+          if (actions.childElementCount) card.appendChild(actions);
+          grid.appendChild(card);
         });
-        wrap.appendChild(itemsEl);
+
+        wrap.appendChild(grid);
         daysEl.appendChild(wrap);
       });
     }
