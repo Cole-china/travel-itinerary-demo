@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>行程日历 Demo</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f7fb;
+      --card: #fff;
+      --text: #1f2933;
+      --sub: #52606d;
+      --accent: #2563eb;
+      --muted: #e5e7eb;
+      --shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1220;
+        --card: #0f172a;
+        --text: #e5e7eb;
+        --sub: #9ca3af;
+        --muted: #1f2937;
+        --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "SF Pro Display", "Inter", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 16px;
+      max-width: 960px;
+      margin-inline: auto;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      padding-bottom: 12px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--muted);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.4rem; }
+    .nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 6px 2px 6px 0;
+      scrollbar-width: thin;
+    }
+    .chip {
+      border: 1px solid var(--muted);
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--text);
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .chip:hover { transform: translateY(-2px); }
+    .chip.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+    .day {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    .day h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+    .day h2 small { color: var(--sub); font-weight: 500; }
+    .items { display: flex; flex-direction: column; gap: 10px; }
+    .item {
+      border: 1px solid var(--muted);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: color-mix(in srgb, var(--card) 90%, var(--accent) 10%);
+    }
+    .time { font-weight: 700; color: var(--accent); }
+    .title { font-size: 1rem; margin: 2px 0; }
+    .meta { color: var(--sub); font-size: 0.92rem; }
+    .tag {
+      display: inline-block;
+      background: color-mix(in srgb, var(--accent) 18%, var(--card) 82%);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      margin-right: 6px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @media (min-width: 720px) {
+      body { padding: 24px; }
+      .items { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>旅行日程 Demo</h1>
+    <div class="nav" id="dayNav"></div>
+  </header>
+  <main id="days"></main>
+
+  <script>
+    const schedule = [
+      {
+        date: "2026-04-01",
+        label: "Day 1 · 抵达",
+        items: [
+          { time: "09:30", title: "抵达机场 · 办理入住", location: "虹桥T2 → 市中心酒店", transport: "地铁2号线 45 分钟", note: "酒店可提前寄存行李" },
+          { time: "12:30", title: "午餐", location: "静安寺附近 · 本帮菜", note: "人均 ¥80" },
+          { time: "14:00", title: "城隍庙 · 豫园", location: "城隍庙景区", transport: "地铁10号线 20 分钟", note: "推荐老城隍庙小吃" },
+          { time: "18:30", title: "外滩夜景", location: "外滩黄浦江步道", transport: "步行/地铁", note: "拍照点：外白渡桥" }
+        ]
+      },
+      {
+        date: "2026-04-02",
+        label: "Day 2 · 城市漫步",
+        items: [
+          { time: "09:00", title: "早餐 & 咖啡", location: "新天地 · 咖啡馆", note: "可远程办公 2h" },
+          { time: "11:30", title: "梧桐街区走读", location: "武康路-安福路一带", transport: "步行", note: "小店/买手店" },
+          { time: "15:00", title: "博物馆/美术馆", location: "龙美术馆/余德耀美术馆（二选一）", transport: "地铁+步行", note: "提前线上购票" },
+          { time: "19:00", title: "夜宵", location: "延吉路韩式/黄河路小吃", note: "人均 ¥70-120" }
+        ]
+      },
+      {
+        date: "2026-04-03",
+        label: "Day 3 · 返程",
+        items: [
+          { time: "09:30", title: "早午餐", location: "酒店附近", note: "收拾行李，退房" },
+          { time: "12:00", title: "返程", location: "酒店 → 虹桥T2", transport: "地铁2号线 45 分钟", note: "预留安检时间" }
+        ]
+      }
+    ];
+
+    const daysEl = document.getElementById('days');
+    const navEl = document.getElementById('dayNav');
+
+    function render() {
+      schedule.forEach((day, idx) => {
+        const dayId = `day-${idx}`;
+        // nav chip
+        const chip = document.createElement('button');
+        chip.className = 'chip' + (idx === 0 ? ' active' : '');
+        chip.textContent = day.label || day.date;
+        chip.onclick = () => {
+          document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          document.getElementById(dayId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        navEl.appendChild(chip);
+
+        // day card
+        const wrap = document.createElement('section');
+        wrap.className = 'day';
+        wrap.id = dayId;
+        wrap.innerHTML = `<h2>${day.label || day.date} <small>${day.date}</small></h2>`;
+        const itemsEl = document.createElement('div');
+        itemsEl.className = 'items';
+        (day.items || []).forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'item';
+          div.innerHTML = `
+            <div class="time">${item.time || ''}</div>
+            <div class="title">${item.title || ''}</div>
+            <div class="meta">${item.location ? '📍 ' + item.location : ''}</div>
+            <div class="meta">${item.transport ? '<span class="tag">交通</span>' + item.transport : ''}</div>
+            <div class="meta">${item.note || ''}</div>
+          `;
+          itemsEl.appendChild(div);
+        });
+        wrap.appendChild(itemsEl);
+        daysEl.appendChild(wrap);
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
