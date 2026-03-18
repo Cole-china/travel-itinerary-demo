@@ -106,7 +106,6 @@
     const q = encodeURIComponent;
     const mapEmbed = place => `https://www.google.com/maps?q=${q(place)}&output=embed`;
 
-    // 真实地点近似图片（公共素材）
     const IMAGES = {
       airport: "https://images.unsplash.com/photo-1504198266285-165a02f317c2?auto=format&fit=crop&w=1400&q=80",
       shangrila_sz: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210af?auto=format&fit=crop&w=1400&q=80",
@@ -119,120 +118,97 @@
       yueyan: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=1400&q=80",
       changlong_zoo: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
       changlong_circus: "https://images.unsplash.com/photo-1457972580121-0a23a3c91800?auto=format&fit=crop&w=1400&q=80",
-      maleng: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?auto=format&fit=crop&w=1400&q=80",
-      pearl_cruise: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
-      yunxuan: "https://images.unsplash.com/photo-1544145945-f90425340c7c?auto=format&fit=crop&w=1400&q=80",
+      science: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?auto=format&fit=crop&w=1400&q=80",
       foshan_golf: "https://images.unsplash.com/photo-1506169894395-36397e4aa1f2?auto=format&fit=crop&w=1400&q=80",
-      yongqing: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1400&q=80",
-      guangdong_museum: "https://images.unsplash.com/photo-1529429617124-aee1f1650a5a?auto=format&fit=crop&w=1400&q=80",
-      tianhe_mall: "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1400&q=80",
-      bingsheng: "https://images.unsplash.com/photo-1544145945-f90425340c7c?auto=format&fit=crop&w=1400&q=80",
-      zhengjia: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1400&q=80",
-      bail_vic: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1400&q=80",
+      aquarium: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
+      museum: "https://images.unsplash.com/photo-1529429617124-aee1f1650a5a?auto=format&fit=crop&w=1400&q=80",
+      summer_palace: "https://images.unsplash.com/photo-1544145945-f90425340c7c?auto=format&fit=crop&w=1400&q=80",
       baiyun_airport: "https://images.unsplash.com/photo-1421167418805-7f170a738ebc?auto=format&fit=crop&w=1400&q=80"
     };
 
     const schedule = [
       {
         date: "2026-03-20",
-        label: "Day 1 · 抵达广州→深圳｜挥杆",
-        summary: "抵达广州，转场深圳，晚餐云璟",
+        label: "Day 1 · 抵达广州→深圳",
+        summary: "MH376 抵达广州，转场深圳，云璟晚餐",
         cover: IMAGES.airport,
         items: [
-          { time: "09:25-13:35", title: "航班 MH376 抵达广州白云", location: "CAN", note: "接机：两辆商务车；随行：Hao Ge、Moli、Mrs. Li、Moga、Mark、Mini", rating: 4.7, tags:["抵达","接驳"], img: IMAGES.airport },
-          { time: "13:35-16:25", title: "前往深圳南山香格里拉", transport: "车程约1小时50分", note: "抵达酒店 16:25", rating: 4.6, tags:["酒店"], img: IMAGES.shangrila_sz },
-          { time: "18:30", title: "晚餐：云璟 Yun Jing", transport: "酒店→餐厅约18分钟", rating: 4.8, tags:["中餐","景观"], review:"景观位+精致粤菜，适合欢迎晚宴", img: IMAGES.yunjing, map: mapEmbed('云璟 深圳') }
+          { time: "抵达", title: "航班 MH376 抵达广州白云 → 深圳", transport: "2 辆商务车接机，转场南山香格里拉", note: "12人：Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli、Moga、Mark、Mini", tags:["抵达","接驳"], img: IMAGES.airport, map: mapEmbed('广州白云机场') },
+          { time: "入住", title: "深圳南山香格里拉酒店", note: "抵达后入住", tags:["酒店"], img: IMAGES.shangrila_sz },
+          { time: "晚餐", title: "云璟 Yun Jing", transport: "酒店↔餐厅 · 2 辆商务车", tags:["晚餐"], img: IMAGES.yunjing, map: mapEmbed('云璟 深圳') }
         ]
       },
       {
         date: "2026-03-21",
         label: "Day 2 · 深圳挥杆",
-        summary: "隐秀高尔夫 + 足浴 + 融苑晚餐",
+        summary: "隐秀高尔夫 + 足浴 + 融苑 + 送程",
         cover: IMAGES.xiaoxiu_golf,
         items: [
-          { time: "09:00", title: "隐秀高尔夫 18洞", transport: "酒店→球场约56分钟", note: "球手：Mr Yong、Mary 等", rating: 4.9, tags:["高尔夫","度假"], review:"深圳标杆球场，景观+维护优秀", img: IMAGES.xiaoxiu_golf, map: mapEmbed('隐秀高尔夫 深圳') },
-          { time: "12:30", title: "午餐", location: "球场内用餐", rating: 4.3, tags:["简餐"] },
-          { time: "15:00", title: "康悦故事·足道", transport: "球场→足浴约1小时05分", rating: 4.6, tags:["按摩"], review:"环境舒适，适合放松", img: IMAGES.foot_massage, map: mapEmbed('康悦故事 足道') },
-          { time: "18:30", title: "晚餐：融苑·二十四节气菜", transport: "足浴→餐厅约18分钟", rating: 4.5, tags:["粤菜","时令"], review:"时令菜单，味道稳定", img: IMAGES.rongyuan, map: mapEmbed('融苑 二十四节气菜 南山') }
+          { time: "上午", title: "酒店↔隐秀高尔夫", transport: "2 辆商务车，12人", note: "Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli、Moga、Mark、Mini", tags:["高尔夫"], img: IMAGES.xiaoxiu_golf, map: mapEmbed('隐秀高尔夫 深圳') },
+          { time: "下午", title: "球场→足浴→融苑→酒店", transport: "3 辆商务车", tags:["休闲","餐饮"], img: IMAGES.rongyuan, map: mapEmbed('融苑 深圳') },
+          { time: "送程", title: "Datuk Richard、Datin Richard", transport: "1 辆商务车", tags:["送机"] }
         ]
       },
       {
         date: "2026-03-22",
-        label: "Day 3 · 转场广州｜挥杆+童梦抵达",
-        summary: "挥杆东莞海逸 → 广州；童梦组抵达 + 樾宴",
+        label: "Day 3 · 转场广州 | 挥杆+童梦抵达",
+        summary: "海逸挥杆 → 广州；童梦抵达；樾宴晚餐",
         cover: IMAGES.haiyi_golf,
         items: [
-          { time: "09:00", title: "东莞 海逸高尔夫", transport: "酒店→球场约1小时11分", note: "午餐：球场内", rating: 4.7, tags:["高尔夫"], img: IMAGES.haiyi_golf, map: mapEmbed('东莞 海逸高尔夫') },
-          { time: "14:30", title: "东莞→广州", transport: "车程约1小时25分", rating: 4.2, tags:["交通"] },
-          { time: "09:25-13:35", title: "童梦组抵达 MH376", note: "3辆商务车接机；接机：Moga、Mini", rating: 4.6, tags:["抵达"], img: IMAGES.airport },
-          { time: "16:25", title: "入住 广州香格里拉", transport: "车程约50分钟", rating: 4.8, tags:["酒店"], img: IMAGES.shangrila_gz },
-          { time: "18:30", title: "晚餐：樾宴（二沙岛）", transport: "酒店→餐厅约26分钟", rating: 4.7, tags:["晚餐","江景"], img: IMAGES.yueyan, map: mapEmbed('樾宴 二沙岛') }
+          { time: "上午", title: "海逸高尔夫 → 广州香格里拉", transport: "2 辆商务车，7人", note: "Mr Yong、Mary、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli", tags:["高尔夫"], img: IMAGES.haiyi_golf },
+          { time: "抵达", title: "童梦抵达 MH376 接机", transport: "3 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Mary、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)、Moge、Mini", tags:["接机"], img: IMAGES.airport, map: mapEmbed('广州白云机场') },
+          { time: "晚餐", title: "二沙岛 樾宴", transport: "酒店↔餐厅 · 3 辆商务车，17人", tags:["晚餐"], img: IMAGES.yueyan, map: mapEmbed('樾宴 二沙岛') }
         ]
       },
       {
         date: "2026-03-23",
-        label: "Day 4 · 长隆一日｜童梦",
-        summary: "长隆野生动物园 + 大马戏",
+        label: "Day 4 · 童梦 | 商务",
+        summary: "长隆动物园/大马戏；商务考察",
         cover: IMAGES.changlong_zoo,
         items: [
-          { time: "08:45", title: "出发 长隆野生动物园", note: "争取09:30前抵达", rating: 4.8, tags:["亲子","动物"], img: IMAGES.changlong_zoo, map: mapEmbed('长隆野生动物园') },
-          { time: "12:30", title: "午餐：园内动物主题餐厅", rating: 4.4, tags:["餐饮"] },
-          { time: "14:00-17:00", title: "步行游览园区", rating: 4.5, tags:["步行","表演"] },
-          { time: "18:00", title: "周边晚餐", rating: 4.2, tags:["晚餐"] },
-          { time: "18:45-22:00", title: "长隆国际大马戏", note: "一等座；演出后返酒店", rating: 4.9, tags:["演出"], img: IMAGES.changlong_circus }
+          { time: "全天", title: "长隆野生动物园 / 大马戏", transport: "2 辆商务车，12人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Mary、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子","演出"], img: IMAGES.changlong_circus, map: mapEmbed('长隆野生动物园') },
+          { time: "商务", title: "商务考察", transport: "1 辆商务车，4人", note: "Mr Yong、Hao Ge、Mrs. Li、Moli", tags:["商务"] }
         ]
       },
       {
         date: "2026-03-24",
-        label: "Day 5 · 广州｜童梦+挥杆",
-        summary: "童梦：马岭观花+珠江夜游；挥杆：佛山球会+永庆坊",
-        cover: IMAGES.maleng,
+        label: "Day 5 · 童梦+挥杆+接机",
+        summary: "科学中心&韵轩；佛山球场；接机 Ben",
+        cover: IMAGES.science,
         items: [
-          { time: "10:00", title: "童梦：马岭观花植物园", transport: "车程约1小时05分", rating: 4.6, tags:["自然","亲子"], img: IMAGES.maleng, map: mapEmbed('马岭观花植物园') },
-          { time: "15:00", title: "童梦：前往珠江夜游（天字码头）", transport: "约1小时05分", rating: 4.5, tags:["江景"], map: mapEmbed('天字码头') },
-          { time: "16:00", title: "童梦：珠江夜游", rating: 4.7, tags:["船游"], img: IMAGES.pearl_cruise },
-          { time: "18:00", title: "童梦：晚餐 康莱德韵轩", rating: 4.6, tags:["粤菜"], img: IMAGES.yunxuan, map: mapEmbed('韵轩 康莱德 广州') },
-          { time: "09:15-09:30", title: "挥杆：佛山高尔夫球会 开球", transport: "酒店→球场约58分钟", note: "午餐：球场内", rating: 4.7, tags:["高尔夫"], img: IMAGES.foshan_golf, map: mapEmbed('佛山高尔夫球会') },
-          { time: "15:00", title: "挥杆：足浴 + 永庆坊", rating: 4.4, tags:["休闲","老街"], img: IMAGES.yongqing, map: mapEmbed('永庆坊') },
-          { time: "19:00", title: "挥杆：晚餐 康莱德韵轩", rating: 4.6, tags:["粤菜"] }
+          { time: "童梦", title: "酒店→广东科学中心→康莱德韵轩", transport: "2 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子","餐饮"], img: IMAGES.science, map: mapEmbed('广东科学中心') },
+          { time: "挥杆", title: "酒店→佛山高尔夫→康莱德韵轩", transport: "2 辆商务车，7人", note: "Mr Yong、Mary、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli", tags:["高尔夫"], img: IMAGES.foshan_golf, map: mapEmbed('佛山高尔夫球会') },
+          { time: "接机", title: "MH376 Ben 接机", transport: "1 辆商务车，1人", tags:["接机"], img: IMAGES.airport }
         ]
       },
       {
         date: "2026-03-25",
-        label: "Day 6 · 广州｜童梦+商务",
-        summary: "童梦：广东博物馆 + 永庆坊；商务：天河商超考察",
-        cover: IMAGES.guangdong_museum,
+        label: "Day 6 · 童梦+商务",
+        summary: "极地海洋世界 / 君悦空中花园；天河商超考察",
+        cover: IMAGES.aquarium,
         items: [
-          { time: "10:00", title: "童梦：广东博物馆", transport: "酒店→约21分钟", rating: 4.7, tags:["博物馆"], img: IMAGES.guangdong_museum, map: mapEmbed('广东博物馆') },
-          { time: "13:30-18:00", title: "童梦：永庆坊闲逛", rating: 4.6, tags:["老街","咖啡"], img: IMAGES.yongqing, map: mapEmbed('永庆坊') },
-          { time: "19:00", title: "童梦：晚餐 炳胜私厨（中达旗舰店）", rating: 4.6, tags:["粤菜","老字号"], img: IMAGES.bingsheng, map: mapEmbed('炳胜私厨 中达旗舰店') },
-          { time: "09:30", title: "商务：天河商超考察", desc: "S001 天河城；S002 正佳；S003 天环；S004 太古汇", rating: 4.8, tags:["商场","考察"], img: IMAGES.tianhe_mall, map: mapEmbed('天河城') },
-          { time: "19:00", title: "商务：晚餐 炳胜私厨", rating: 4.6, tags:["粤菜"] }
+          { time: "童梦", title: "酒店→正佳极地海洋世界→君悦空中花园", transport: "2 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子"], img: IMAGES.aquarium, map: mapEmbed('正佳极地海洋世界') },
+          { time: "商务", title: "天河商超考察→君悦空中花园", transport: "2 辆商务车，8人", note: "Mr Yong、Mary、Datuk Lim、Datin Lim、Ben、Hao Ge、Mrs. Li、Moli", tags:["商务"], map: mapEmbed('天河城') }
         ]
       },
       {
         date: "2026-03-26",
-        label: "Day 7 · 广州｜童梦+商务+送机",
-        summary: "童梦：正佳企鹅/海洋世界；商务：送机+企业考察",
-        cover: IMAGES.zhengjia,
+        label: "Day 7 · 童梦+商务+送机",
+        summary: "广东省博物馆；送机；商务考察 夏宫",
+        cover: IMAGES.museum,
         items: [
-          { time: "10:30-12:00", title: "童梦：正佳企鹅冰雪世界", transport: "酒店→约26分钟", rating: 4.5, tags:["亲子","冰雪"], img: IMAGES.zhengjia, map: mapEmbed('正佳企鹅冰雪世界') },
-          { time: "13:30-18:00", title: "童梦：正佳极地海洋世界 + 美人鱼表演", rating: 4.7, tags:["海洋馆"] },
-          { time: "19:00", title: "童梦：晚餐 白天鹅西关粤", rating: 4.6, tags:["粤菜"], img: IMAGES.bail_vic, map: mapEmbed('白天鹅酒店 西关粤') },
-          { time: "11:00", title: "商务：送机 Datuk Lim 夫妻", transport: "酒店→白云机场约50分钟", rating: 4.5, tags:["送机"], img: IMAGES.baiyun_airport, map: mapEmbed('广州白云国际机场') },
-          { time: "10:00-17:00", title: "商务：企业考察", desc: "E001 欧定服饰；E002 汇美；E003 哥弟研发；E004 星际熊文创", rating: 4.8, tags:["考察","服饰"] },
-          { time: "19:00", title: "商务：晚餐 白天鹅西关粤", rating: 4.6, tags:["粤菜"] }
+          { time: "童梦", title: "酒店→广东省博物馆→夏宫", transport: "2 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子","博物馆"], img: IMAGES.museum, map: mapEmbed('广东省博物馆') },
+          { time: "送机", title: "Datuk Lim 夫妻 送机", transport: "1 辆商务车，2人", tags:["送机"], img: IMAGES.baiyun_airport, map: mapEmbed('广州白云国际机场') },
+          { time: "商务", title: "商务考察→夏宫", transport: "1 辆商务车，6人", note: "Mr Yong、Mary、Ben、Hao Ge、Mrs. Li、Moli", tags:["商务","餐饮"], img: IMAGES.summer_palace, map: mapEmbed('夏宫 广州') }
         ]
       },
       {
         date: "2026-03-27",
-        label: "Day 8 · 广州→马来西亚 返程",
-        summary: "早餐后出发白云机场，17人返程",
+        label: "Day 8 · 广州→返程",
+        summary: "酒店→白云机场返程 17人",
         cover: IMAGES.baiyun_airport,
         items: [
-          { time: "08:00-10:00", title: "早餐", rating: 4.2, tags:["酒店"] },
-          { time: "11:00", title: "出发前往白云机场", transport: "车程约50分钟", rating: 4.4, tags:["送机"], img: IMAGES.baiyun_airport, map: mapEmbed('广州白云国际机场') },
-          { time: "送机团队", title: "Moli、Hao Ge、Mrs. Li、Moga、Mini", note: "商务+童梦 共17人返程", rating: 4.7, tags:["团队"] }
+          { time: "送机", title: "酒店→白云机场", transport: "4 辆商务车，17人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)、Mr Yong、Mary、Ben、Hao Ge、Mrs. Li、Moli", tags:["送机"], img: IMAGES.baiyun_airport, map: mapEmbed('广州白云国际机场') }
         ]
       }
     ];
