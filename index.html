@@ -3,98 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>行程日历 · Malaysia Group</title>
+  <title>车辆行程总览 · Malaysia Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #f6f7fb;
-      --panel: rgba(255, 255, 255, 0.82);
-      --ink: #0f172a;
-      --muted: #6b7280;
-      --line: rgba(15, 23, 42, 0.12);
-      --accent: #1b4bff;
-      --accent-2: #0ea5e9;
-      --shadow: 0 14px 45px rgba(15, 23, 42, 0.14);
-      --radius-lg: 18px;
+      color-scheme: dark;
+      --bg: #0b0f16;
+      --panel: #0f1622;
+      --panel-2: #111927;
+      --ink: #e7edf7;
+      --muted: #9ab0c8;
+      --line: rgba(255,255,255,0.08);
+      --accent: #ff6b35;
+      --accent-2: #2bd4c2;
+      --shadow: 0 18px 50px rgba(0,0,0,0.55);
+      --radius-lg: 20px;
       --radius-sm: 12px;
       --glass: blur(16px);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0b1220;
-        --panel: rgba(13, 19, 35, 0.8);
-        --ink: #e5e7eb;
-        --muted: #94a3b8;
-        --line: rgba(148, 163, 184, 0.16);
-        --accent: #4f8bff;
-        --accent-2: #22d3ee;
-        --shadow: 0 16px 50px rgba(0, 0, 0, 0.35);
-      }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: 'Manrope', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at 15% 20%, rgba(34,197,235,0.12), transparent 30%),
-                  radial-gradient(circle at 85% 10%, rgba(27,75,255,0.16), transparent 32%),
-                  radial-gradient(circle at 50% 90%, rgba(14,165,233,0.12), transparent 30%),
-                  var(--bg);
+      font-family: 'IBM Plex Sans', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,107,53,0.12), transparent 34%),
+        radial-gradient(circle at 82% 10%, rgba(43,212,194,0.14), transparent 36%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.06), transparent 40%),
+        var(--bg);
       color: var(--ink);
-      line-height: 1.6;
+      line-height: 1.65;
       padding: 18px;
       max-width: 1200px;
       margin-inline: auto;
+      position: relative;
+      overflow-x: hidden;
     }
-    header { position: sticky; top: 0; z-index: 20; backdrop-filter: var(--glass); background: color-mix(in srgb, var(--bg) 80%, transparent); border-bottom: 1px solid var(--line); padding: 16px 0 12px; margin-bottom: 10px; }
-    .hero { background: linear-gradient(120deg, rgba(27,75,255,0.9), rgba(14,165,233,0.9)); color: #fff; padding: 22px 20px; border-radius: var(--radius-lg); box-shadow: var(--shadow); display: grid; gap: 12px; }
-    .hero h1 { margin: 0; font-family: 'Playfair Display', serif; letter-spacing: 0.4px; font-size: 1.6rem; }
-    .hero p { margin: 0; color: rgba(255,255,255,0.88); }
-    .legend { color: rgba(255,255,255,0.82); font-size: 0.9rem; }
-    .nav { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 6px 0; scrollbar-width: thin; margin-top: 6px; }
-    .chip { border: 1px solid var(--line); padding: 8px 12px; border-radius: 999px; background: var(--panel); color: var(--ink); white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease; }
+    .grain { position: fixed; inset: 0; pointer-events: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="160" height="160" filter="url(%23n)" opacity="0.16"/></svg>'); opacity: 0.5; mix-blend-mode: soft-light; }
+    header { position: sticky; top: 0; z-index: 10; backdrop-filter: var(--glass); background: color-mix(in srgb, var(--bg) 86%, transparent); border-bottom: 1px solid var(--line); padding: 14px 0 10px; margin-bottom: 12px; }
+    .hero { background: linear-gradient(120deg, #131c2b, #0f1622 40%, #0b0f16); border: 1px solid var(--line); color: #fff; padding: 22px 20px; border-radius: var(--radius-lg); box-shadow: var(--shadow); display: grid; gap: 12px; position: relative; overflow: hidden; }
+    .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 10% 20%, rgba(255,107,53,0.22), transparent 40%), radial-gradient(circle at 80% 10%, rgba(43,212,194,0.18), transparent 38%); pointer-events: none; }
+    .hero h1 { margin: 0; font-family: 'Archivo', sans-serif; letter-spacing: 0.6px; font-size: 1.5rem; position: relative; z-index: 1; }
+    .hero p { margin: 0; color: rgba(255,255,255,0.86); position: relative; z-index: 1; }
+    .legend { color: rgba(255,255,255,0.72); font-size: 0.92rem; }
+    .stats { display: flex; gap: 12px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .stat { padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); display: grid; gap: 2px; min-width: 140px; }
+    .stat-label { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+    .stat-value { font-family: 'Archivo', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+    .nav { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 6px 0; scrollbar-width: thin; margin-top: 6px; position: relative; z-index: 1; }
+    .chip { border: 1px solid var(--line); padding: 8px 12px; border-radius: 12px; background: var(--panel-2); color: var(--ink); white-space: nowrap; box-shadow: 0 12px 30px rgba(0,0,0,0.25); cursor: pointer; transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease; }
     .chip:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .chip.active { border-color: var(--accent); color: var(--accent); font-weight: 700; }
 
     main { margin-top: 14px; display: grid; gap: 14px; }
-    .day { background: var(--panel); border-radius: var(--radius-lg); padding: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); display: grid; gap: 12px; }
-    .day-header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .day-title { margin: 0; font-size: 1.05rem; font-weight: 800; }
+    .day { background: var(--panel); border-radius: var(--radius-lg); padding: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); display: grid; gap: 12px; position: relative; overflow: hidden; }
+    .day::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, transparent 55%, rgba(255,107,53,0.07)); }
+    .day-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .day-title { margin: 0; font-size: 1.05rem; font-weight: 800; font-family: 'Archivo', sans-serif; letter-spacing: 0.2px; }
     .day-date { color: var(--muted); font-weight: 600; }
-    .day-meta { color: var(--muted); font-size: 0.94rem; }
+    .day-meta { color: var(--muted); font-size: 0.95rem; }
 
-    .img-wrap { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); height: 220px; background: #e5e7eb; }
-    .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 10px; }
+    .pill { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--panel-2); display: grid; gap: 4px; }
+    .pill-label { color: var(--muted); font-size: 0.9rem; }
+    .pill-value { font-weight: 700; color: var(--accent); font-size: 1.05rem; }
 
     .grid-items { display: grid; gap: 10px; }
     @media (min-width: 820px) { .grid-items { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
 
-    .item { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px; background: color-mix(in srgb, var(--panel) 88%, rgba(27,75,255,0.05) 12%); display: grid; gap: 8px; position: relative; overflow: hidden; }
-    .item::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 55%, rgba(27,75,255,0.06)); pointer-events: none; }
-    .time { font-weight: 800; color: var(--accent); font-size: 0.96rem; }
+    .item { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px; background: color-mix(in srgb, var(--panel) 88%, rgba(255,107,53,0.05) 12%); display: grid; gap: 8px; position: relative; overflow: hidden; }
+    .item::after { content: ""; position: absolute; inset: 0; background: linear-gradient(140deg, transparent 60%, rgba(43,212,194,0.08)); pointer-events: none; }
+    .time { font-weight: 800; color: var(--accent); font-size: 0.95rem; letter-spacing: 0.1px; }
     .title { font-size: 1rem; font-weight: 800; margin: 0; }
     .meta { color: var(--muted); font-size: 0.94rem; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-    .tag { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--accent) 16%, var(--panel) 84%); color: var(--accent); padding: 4px 8px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; }
+    .tag { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--accent) 18%, var(--panel) 82%); color: var(--accent); padding: 4px 8px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; }
     .desc { color: var(--ink); font-size: 0.94rem; }
-    .rating { font-weight: 800; color: var(--accent-2); }
-    .thumb { border-radius: 10px; overflow: hidden; height: 120px; border: 1px solid var(--line); background: #e2e8f0; }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .count { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--accent-2) 18%, var(--panel) 82%); color: var(--accent-2); padding: 4px 8px; border-radius: 10px; font-weight: 800; }
     .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
     .btn-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 12%, var(--panel) 88%); color: var(--accent); border: 1px solid var(--line); text-decoration: none; font-weight: 800; transition: transform 0.12s ease; }
     .btn-link:hover { transform: translateY(-1px); }
     .map-frame { margin-top: 8px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: none; }
     .map-frame iframe { width: 100%; height: 220px; border: none; display: block; }
+
+    .people { color: var(--muted); font-size: 0.9rem; }
+    .people strong { color: var(--ink); font-weight: 700; }
   </style>
 </head>
 <body>
+  <div class="grain"></div>
   <header>
     <div class="hero">
       <div>
-        <h1>Malaysia Group · 广深穗 行程</h1>
-        <p>3/20 - 3/27 · 挥杆 / 童梦 / 商务 · 纯前端 / 移动优先</p>
-        <p class="legend">提示：顶部日期可跳转；行程卡可打开地图；图片为真实场景（公共素材近似地点）。</p>
+        <h1>车辆行程总览 · Malaysia Group</h1>
+        <p>3/20 - 3/27 · 聚焦车辆/人数/动线 · 广深穗</p>
+        <p class="legend">快速查看每日车辆数量、乘车人名单、路线。顶部标签跳转对应日期。</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">总天数</div>
+          <div class="stat-value">8</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">最高单日车辆</div>
+          <div class="stat-value">5 辆</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">主要分组</div>
+          <div class="stat-value">挥杆 / 童梦 / 商务</div>
+        </div>
       </div>
       <div class="nav" id="dayNav"></div>
     </div>
@@ -106,109 +123,88 @@
     const q = encodeURIComponent;
     const mapEmbed = place => `https://www.google.com/maps?q=${q(place)}&output=embed`;
 
-    const IMAGES = {
-      airport: "https://images.unsplash.com/photo-1504198266285-165a02f317c2?auto=format&fit=crop&w=1400&q=80",
-      shangrila_sz: "https://images.unsplash.com/photo-1501117716987-c8e1ecb210af?auto=format&fit=crop&w=1400&q=80",
-      yunjing: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1400&q=80",
-      xiaoxiu_golf: "https://images.unsplash.com/photo-1508766206392-8bd5cf550d1b?auto=format&fit=crop&w=1400&q=80",
-      foot_massage: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1400&q=80",
-      rongyuan: "https://images.unsplash.com/photo-1421622548261-c45bfe178854?auto=format&fit=crop&w=1400&q=80",
-      haiyi_golf: "https://images.unsplash.com/photo-1518607692857-bff9babd9d87?auto=format&fit=crop&w=1400&q=80",
-      shangrila_gz: "https://images.unsplash.com/photo-1472220625704-91e1462799b2?auto=format&fit=crop&w=1400&q=80",
-      yueyan: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=1400&q=80",
-      changlong_zoo: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
-      changlong_circus: "https://images.unsplash.com/photo-1457972580121-0a23a3c91800?auto=format&fit=crop&w=1400&q=80",
-      science: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?auto=format&fit=crop&w=1400&q=80",
-      foshan_golf: "https://images.unsplash.com/photo-1506169894395-36397e4aa1f2?auto=format&fit=crop&w=1400&q=80",
-      aquarium: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80",
-      museum: "https://images.unsplash.com/photo-1529429617124-aee1f1650a5a?auto=format&fit=crop&w=1400&q=80",
-      summer_palace: "https://images.unsplash.com/photo-1544145945-f90425340c7c?auto=format&fit=crop&w=1400&q=80",
-      baiyun_airport: "https://images.unsplash.com/photo-1421167418805-7f170a738ebc?auto=format&fit=crop&w=1400&q=80"
-    };
-
     const schedule = [
       {
         date: "2026-03-20",
-        label: "Day 1 · 抵达广州→深圳",
-        summary: "MH376 抵达广州，转场深圳，云璟晚餐",
-        cover: IMAGES.airport,
+        label: "Day 1 · 广州→深圳",
+        summary: "MH376 抵达，转场南山香格里拉，云璟晚餐",
+        totalVehicles: 2,
         items: [
-          { time: "抵达", title: "航班 MH376 抵达广州白云 → 深圳", transport: "2 辆商务车接机，转场南山香格里拉", note: "12人：Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli、Moga、Mark、Mini", tags:["抵达","接驳"], img: IMAGES.airport, map: mapEmbed('广州白云机场') },
-          { time: "入住", title: "深圳南山香格里拉酒店", note: "抵达后入住", tags:["酒店"], img: IMAGES.shangrila_sz },
-          { time: "晚餐", title: "云璟 Yun Jing", transport: "酒店↔餐厅 · 2 辆商务车", tags:["晚餐"], img: IMAGES.yunjing, map: mapEmbed('云璟 深圳') }
+          { time: "抵达", title: "MH376 抵达广州→深圳", vehicles: 2, paxCount: 12, pax: "Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli、Moga、Mark、Mini", note: "2 辆商务车接机并转场酒店", map: mapEmbed('广州白云机场') },
+          { time: "晚餐", title: "云璟 Yun Jing（酒店↔餐厅）", vehicles: 2, paxCount: 12, pax: "同上", note: "酒店 ↔ 餐厅 2 辆商务车", map: mapEmbed('云璟 深圳') }
         ]
       },
       {
         date: "2026-03-21",
         label: "Day 2 · 深圳挥杆",
-        summary: "隐秀高尔夫 + 足浴 + 融苑 + 送程",
-        cover: IMAGES.xiaoxiu_golf,
+        summary: "隐秀高尔夫 + 足浴/融苑 + 送程",
+        totalVehicles: 3,
         items: [
-          { time: "上午", title: "酒店↔隐秀高尔夫", transport: "2 辆商务车，12人", note: "Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli、Moga、Mark、Mini", tags:["高尔夫"], img: IMAGES.xiaoxiu_golf, map: mapEmbed('隐秀高尔夫 深圳') },
-          { time: "下午", title: "球场→足浴→融苑→酒店", transport: "3 辆商务车", tags:["休闲","餐饮"], img: IMAGES.rongyuan, map: mapEmbed('融苑 深圳') },
-          { time: "送程", title: "Datuk Richard、Datin Richard", transport: "1 辆商务车", tags:["送机"] }
+          { time: "上午", title: "酒店↔隐秀高尔夫", vehicles: 2, paxCount: 12, pax: "Mr Yong、Mary、Datuk Richard、Datin Richard、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli、Moga、Mark、Mini", note: "2 辆商务车" , map: mapEmbed('隐秀高尔夫 深圳') },
+          { time: "下午/晚间", title: "球场→足浴→融苑→酒店", vehicles: 3, paxCount: 12, pax: "同上", note: "3 辆商务车串联行程", map: mapEmbed('融苑 深圳') },
+          { time: "送程", title: "Datuk Richard、Datin Richard", vehicles: 1, paxCount: 2, pax: "Datuk Richard、Datin Richard", note: "送机 1 辆商务车", map: mapEmbed('深圳机场') }
         ]
       },
       {
         date: "2026-03-22",
-        label: "Day 3 · 转场广州 | 挥杆+童梦抵达",
-        summary: "海逸挥杆 → 广州；童梦抵达；樾宴晚餐",
-        cover: IMAGES.haiyi_golf,
+        label: "Day 3 · 转场广州 | 抵达童梦",
+        summary: "海逸挥杆→广州；童梦抵达；樾宴",
+        totalVehicles: 5,
         items: [
-          { time: "上午", title: "海逸高尔夫 → 广州香格里拉", transport: "2 辆商务车，7人", note: "Mr Yong、Mary、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli", tags:["高尔夫"], img: IMAGES.haiyi_golf },
-          { time: "抵达", title: "童梦抵达 MH376 接机", transport: "3 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Mary、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)、Moge、Mini", tags:["接机"], img: IMAGES.airport, map: mapEmbed('广州白云机场') },
-          { time: "晚餐", title: "二沙岛 樾宴", transport: "酒店↔餐厅 · 3 辆商务车，17人", tags:["晚餐"], img: IMAGES.yueyan, map: mapEmbed('樾宴 二沙岛') }
+          { time: "上午", title: "海逸高尔夫→广州香格里拉", vehicles: 2, paxCount: 7, pax: "Mr Yong、Mary、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli", note: "2 辆商务车" , map: mapEmbed('东莞 海逸高尔夫') },
+          { time: "抵达", title: "童梦抵达 MH376 接机", vehicles: 3, paxCount: 11, pax: "Andrew、Chris、Irene、Natalia、Mini、Moga、Mary、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)、Moge、Mini", note: "3 辆商务车接机" , map: mapEmbed('广州白云机场') },
+          { time: "晚餐", title: "二沙岛 樾宴（酒店↔餐厅）", vehicles: 3, paxCount: 17, pax: "全员", note: "3 辆商务车" , map: mapEmbed('樾宴 二沙岛') }
         ]
       },
       {
         date: "2026-03-23",
         label: "Day 4 · 童梦 | 商务",
-        summary: "长隆动物园/大马戏；商务考察",
-        cover: IMAGES.changlong_zoo,
+        summary: "长隆野生动物园/大马戏；商务考察",
+        totalVehicles: 3,
         items: [
-          { time: "全天", title: "长隆野生动物园 / 大马戏", transport: "2 辆商务车，12人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Mary、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子","演出"], img: IMAGES.changlong_circus, map: mapEmbed('长隆野生动物园') },
-          { time: "商务", title: "商务考察", transport: "1 辆商务车，4人", note: "Mr Yong、Hao Ge、Mrs. Li、Moli", tags:["商务"] }
+          { time: "全天", title: "长隆野生动物园 / 大马戏", vehicles: 2, paxCount: 12, pax: "Andrew、Chris、Irene、Natalia、Mini、Moga、Mary、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", note: "2 辆商务车" , map: mapEmbed('长隆野生动物园') },
+          { time: "商务", title: "商务考察", vehicles: 1, paxCount: 4, pax: "Mr Yong、Hao Ge、Mrs. Li、Moli", note: "1 辆商务车" }
         ]
       },
       {
         date: "2026-03-24",
         label: "Day 5 · 童梦+挥杆+接机",
-        summary: "科学中心&韵轩；佛山球场；接机 Ben",
-        cover: IMAGES.science,
+        summary: "科学中心 & 佛山挥杆；接机 Ben",
+        totalVehicles: 4,
         items: [
-          { time: "童梦", title: "酒店→广东科学中心→康莱德韵轩", transport: "2 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子","餐饮"], img: IMAGES.science, map: mapEmbed('广东科学中心') },
-          { time: "挥杆", title: "酒店→佛山高尔夫→康莱德韵轩", transport: "2 辆商务车，7人", note: "Mr Yong、Mary、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli", tags:["高尔夫"], img: IMAGES.foshan_golf, map: mapEmbed('佛山高尔夫球会') },
-          { time: "接机", title: "MH376 Ben 接机", transport: "1 辆商务车，1人", tags:["接机"], img: IMAGES.airport }
+          { time: "童梦", title: "酒店→广东科学中心→康莱德韵轩", vehicles: 2, paxCount: 11, pax: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", note: "2 辆商务车" , map: mapEmbed('广东科学中心') },
+          { time: "挥杆", title: "酒店→佛山高尔夫→康莱德韵轩", vehicles: 2, paxCount: 7, pax: "Mr Yong、Mary、Datuk Lim、Datin Lim、Hao Ge、Mrs. Li、Moli", note: "2 辆商务车" , map: mapEmbed('佛山高尔夫球会') },
+          { time: "接机", title: "MH376 Ben 接机", vehicles: 1, paxCount: 1, pax: "Ben", note: "1 辆商务车" , map: mapEmbed('广州白云机场') }
         ]
       },
       {
         date: "2026-03-25",
         label: "Day 6 · 童梦+商务",
-        summary: "极地海洋世界 / 君悦空中花园；天河商超考察",
-        cover: IMAGES.aquarium,
+        summary: "正佳极地海洋世界；天河商超考察",
+        totalVehicles: 2,
         items: [
-          { time: "童梦", title: "酒店→正佳极地海洋世界→君悦空中花园", transport: "2 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子"], img: IMAGES.aquarium, map: mapEmbed('正佳极地海洋世界') },
-          { time: "商务", title: "天河商超考察→君悦空中花园", transport: "2 辆商务车，8人", note: "Mr Yong、Mary、Datuk Lim、Datin Lim、Ben、Hao Ge、Mrs. Li、Moli", tags:["商务"], map: mapEmbed('天河城') }
+          { time: "童梦", title: "酒店→正佳极地海洋世界→君悦空中花园", vehicles: 2, paxCount: 11, pax: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", note: "2 辆商务车" , map: mapEmbed('正佳极地海洋世界') },
+          { time: "商务", title: "天河商超考察→君悦空中花园", vehicles: 2, paxCount: 8, pax: "Mr Yong、Mary、Datuk Lim、Datin Lim、Ben、Hao Ge、Mrs. Li、Moli", note: "2 辆商务车" , map: mapEmbed('天河城') }
         ]
       },
       {
         date: "2026-03-26",
         label: "Day 7 · 童梦+商务+送机",
-        summary: "广东省博物馆；送机；商务考察 夏宫",
-        cover: IMAGES.museum,
+        summary: "广东省博物馆；送机；夏宫商务餐",
+        totalVehicles: 3,
         items: [
-          { time: "童梦", title: "酒店→广东省博物馆→夏宫", transport: "2 辆商务车，11人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", tags:["亲子","博物馆"], img: IMAGES.museum, map: mapEmbed('广东省博物馆') },
-          { time: "送机", title: "Datuk Lim 夫妻 送机", transport: "1 辆商务车，2人", tags:["送机"], img: IMAGES.baiyun_airport, map: mapEmbed('广州白云国际机场') },
-          { time: "商务", title: "商务考察→夏宫", transport: "1 辆商务车，6人", note: "Mr Yong、Mary、Ben、Hao Ge、Mrs. Li、Moli", tags:["商务","餐饮"], img: IMAGES.summer_palace, map: mapEmbed('夏宫 广州') }
+          { time: "童梦", title: "酒店→广东省博物馆→夏宫", vehicles: 2, paxCount: 11, pax: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)", note: "2 辆商务车" , map: mapEmbed('广东省博物馆') },
+          { time: "送机", title: "Datuk Lim 夫妻 送机", vehicles: 1, paxCount: 2, pax: "Datuk Lim、Datin Lim", note: "1 辆商务车" , map: mapEmbed('广州白云机场') },
+          { time: "商务", title: "商务考察→夏宫", vehicles: 1, paxCount: 6, pax: "Mr Yong、Mary、Ben、Hao Ge、Mrs. Li、Moli", note: "1 辆商务车" , map: mapEmbed('夏宫 广州') }
         ]
       },
       {
         date: "2026-03-27",
         label: "Day 8 · 广州→返程",
-        summary: "酒店→白云机场返程 17人",
-        cover: IMAGES.baiyun_airport,
+        summary: "全员返程 白云机场",
+        totalVehicles: 4,
         items: [
-          { time: "送机", title: "酒店→白云机场", transport: "4 辆商务车，17人", note: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)、Mr Yong、Mary、Ben、Hao Ge、Mrs. Li、Moli", tags:["送机"], img: IMAGES.baiyun_airport, map: mapEmbed('广州白云国际机场') }
+          { time: "送机", title: "酒店→白云机场 返程", vehicles: 4, paxCount: 17, pax: "Andrew、Chris、Irene、Natalia、Mini、Moga、Angelina(12)、Alexa(10)、Aurora(5)、Jed(8)、Archer(2-Ben)、Mr Yong、Mary、Ben、Hao Ge、Mrs. Li、Moli", note: "4 辆商务车" , map: mapEmbed('广州白云机场') }
         ]
       }
     ];
@@ -244,12 +240,13 @@
         header.innerHTML = `<div><div class="day-title">${day.label || day.date}</div><div class="day-date">${day.date}</div></div><div class="day-meta">${day.summary || ''}</div>`;
         wrap.appendChild(header);
 
-        if (day.cover) {
-          const imgBox = document.createElement('div');
-          imgBox.className = 'img-wrap';
-          imgBox.innerHTML = `<img src="${day.cover}" alt="${day.label}" loading="lazy" />`;
-          wrap.appendChild(imgBox);
-        }
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.innerHTML = `
+          <div class="pill"><div class="pill-label">当日车辆</div><div class="pill-value">${day.totalVehicles || '-'} 辆</div></div>
+          <div class="pill"><div class="pill-label">行程段数</div><div class="pill-value">${day.items?.length || 0} 段</div></div>
+        `;
+        wrap.appendChild(bar);
 
         const grid = document.createElement('div');
         grid.className = 'grid-items';
@@ -260,20 +257,10 @@
           card.innerHTML = `
             <div class="time">${item.time || ''}</div>
             <div class="title">${item.title || ''}</div>
-            <div class="meta">${item.location ? '📍 ' + item.location : ''} ${item.transport ? '<span class="tag">交通</span>' + item.transport : ''}</div>
-            ${item.tags ? `<div class="meta">${item.tags.map(t => `<span class='tag'>${t}</span>`).join('')}</div>` : ''}
-            ${item.desc ? `<div class="desc">${item.desc}</div>` : ''}
+            <div class="meta">${item.vehicles ? `<span class='tag'>${item.vehicles} 辆商务车</span>` : ''} ${item.paxCount ? `<span class='count'>${item.paxCount} 人</span>` : ''}</div>
             ${item.note ? `<div class="desc">${item.note}</div>` : ''}
-            ${item.review ? `<div class="desc"><strong>点评：</strong>${item.review}</div>` : ''}
-            ${item.rating ? `<div class="meta">评分 <span class="rating">${item.rating.toFixed ? item.rating.toFixed(1) : item.rating}/5</span></div>` : ''}
+            ${item.pax ? `<div class="people"><strong>人员：</strong>${item.pax}</div>` : ''}
           `;
-
-          if (item.img) {
-            const thumb = document.createElement('div');
-            thumb.className = 'thumb';
-            thumb.innerHTML = `<img src="${item.img}" loading="lazy" alt="${item.title}" />`;
-            card.appendChild(thumb);
-          }
 
           const actions = document.createElement('div');
           actions.className = 'actions';
